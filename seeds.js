@@ -1,15 +1,19 @@
 require('dotenv').config();
 require('./config/database');
-var Question = require('./models/question');
+var Question = require('./models/Question');
 
-// Score.remove({}).then(() => {
-//     Score.create([
-//       {initials: 'ABC', numGuesses: 8, seconds: 6999},
-//       {initials: 'bac', numGuesses: 5, seconds: 3151},
-//       {initials: 'XYZ', numGuesses: 8, seconds: 5512},
-//       {initials: 'JD', numGuesses: 7, seconds: 4567}
-//     ]).then(() => {
-//       process.exit();
-//     });
-//   })
-
+Question.remove({}).then(() => {
+    Question.create([
+      {question: 'What three words would passengers never want to hear a pilot say?'},
+      {question: 'You would never go on a carnival ride called BLANK'},
+      {question: 'The secret to a happy life...'},
+      {question: 'Name a candle scent designed specifically for Nicki Minaj'},
+      {question: 'You should never give alcohol to BLANK'},
+      {question: ' Everyone knows that monkeys hate BLANK'},
+      {question: 'The worst thing about living in Hell'},
+      {question: 'The worst thing for an evil witch to turn you into'}
+      
+    ]).then(() => {
+      process.exit();
+    });
+  })
