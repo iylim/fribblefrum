@@ -1,0 +1,15 @@
+.App {
+  height: 100%;
+  text-align: center;
+  font-family: 'slackey', cursive;
+  
+}
+
+.App h1 {
+  font-size: 70px;
+  margin: 0;
+}
+
+.login {
+  margin-bottom: 20px;
+}
