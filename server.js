@@ -8,7 +8,6 @@ require('./config/database');
 
 var app = express();
 
-
 app.use(logger('dev'));
 
 //middleware
