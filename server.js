@@ -1,6 +1,5 @@
 var express = require('express');
 var path = require('path');
-var favicon = require('serve-favicon');
 var logger = require('morgan');
 
 require('dotenv').config();
@@ -11,8 +10,13 @@ var app = express();
 app.use(logger('dev'));
 
 //middleware
-app.use(favicon(path.join(__dirname, 'build', 'favicon.ico')));
 app.use(express.static(path.join(__dirname, 'build')));
+
+//routes
+app.use('/api/users', require('./routes/api/users'));
+//protected routes
+app.use(require('./config/auth'));
+app.use('/api/questions', require('./routes/api/questions'));
 
 //catch all
 app.get('/*', function(req, res) {
