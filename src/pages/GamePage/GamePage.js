@@ -1,8 +1,7 @@
 import React, {Component} from 'react';
 import questionsAPI from '../../utils/questionsAPI';
 import {Link} from 'react-router-dom';
-import QuestionForm from '../../components/QuestionForm/QuestionForm';
-import QuestionAnswer from '../../components/QuestionAnswer/QuestionAnswer';
+import GameRoom from '../../components/GameRoom/GameRoom';
 
 class GamePage extends Component {
   constructor() {
@@ -11,18 +10,19 @@ class GamePage extends Component {
       questions: []
     }
   }
+
   componentDidMount() {
     questionsAPI.index().then(questions =>
     	this.setState({questions})
     );
   }
+
   render() {
     return (
-      <div className='QuestionForm'>
-        <header className="header-footer">Top Scores</header>
+      <div className='GamePage'>
+        <header className="header-footer">Game Room #</header>
         <Link to='/'>RETURN</Link><br />
-        <QuestionForm questions={this.state.questions} />
-        <QuestionAnswer questions={this.state.questions} />
+        <GameRoom questions={this.state.questions}/>
       </div>
     );
   }

@@ -2,7 +2,6 @@ var User = require('../models/user');
 var jwt = require('jsonwebtoken');
 var SECRET = process.env.SECRET;
 
-
 module.exports = {
     signup,
     login
@@ -18,7 +17,7 @@ function signup(req, res) {
       .catch(err => res.status(400).json(err));
   }
 
-  function login() {
+  function login(req, res) {
     User.findOne({email: req.body.email}).exec().then(user => {
         if (!user) return res.status(401).json({err: 'bad credentials'});
         user.comparePassword(req.body.pw, (err, isMatch) => {
@@ -36,7 +35,7 @@ function signup(req, res) {
 
 function createJWT(user) {
     return jwt.sign(
-      {user}, // data payload
+      {user}, 
       SECRET,
       {expiresIn: '24h'}
     );

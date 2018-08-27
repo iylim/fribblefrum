@@ -1,0 +1,23 @@
+.Dashboard {
+    display: flex;
+}
+
+.username {
+    padding: 10px;
+    background-color: white;
+    position: fixed;
+    top: 1em;
+    right: 1em;
+    border: 2px solid black;
+    border-radius: 5px;
+}
+
+a {
+    text-decoration: none;
+    color: black;
+}
+
+a:hover {
+    font-size: 20px;
+}
+

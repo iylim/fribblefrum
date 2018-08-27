@@ -1,7 +1,6 @@
 var express = require('express');
 var path = require('path');
 var logger = require('morgan');
-
 require('dotenv').config();
 require('./config/database');
 
@@ -11,12 +10,14 @@ app.use(logger('dev'));
 
 //middleware
 app.use(express.static(path.join(__dirname, 'build')));
+app.use(express.json());
 
 //routes
 app.use('/api/users', require('./routes/api/users'));
 //protected routes
 app.use(require('./config/auth'));
 app.use('/api/questions', require('./routes/api/questions'));
+app.use('/api/rooms', require('./routes/api/rooms'));
 
 //catch all
 app.get('/*', function(req, res) {

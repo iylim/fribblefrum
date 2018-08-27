@@ -14,11 +14,11 @@ function signup(user) {
   .then(({token}) => token);
 }
 
-function login(user) {
+function login(creds) {
   return fetch(BASE_URL + 'login', {
     method: 'POST',
     headers: new Headers({'Content-Type': 'application/json'}),
-    body: JSON.stringify(user)
+    body: JSON.stringify(creds)
   })
   .then(res => {
     if (res.ok) return res.json();

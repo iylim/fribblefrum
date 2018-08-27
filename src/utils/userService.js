@@ -2,6 +2,7 @@ import userAPI from './userAPI';
 import tokenService from './tokenService';
 
 function signup(user) {
+  delete user.message;
   return userAPI.signup(user)
     .then(token => tokenService.setToken(token));
 }
@@ -14,8 +15,8 @@ function logout() {
   tokenService.removeToken();
 }
 
-function login(user) {
-  return userAPI.login(user)
+function login(creds) {
+  return userAPI.login(creds)
     .then(token => tokenService.setToken(token));
 }
 

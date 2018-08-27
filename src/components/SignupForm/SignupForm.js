@@ -25,12 +25,14 @@ class SignupForm extends Component {
     });
   }
 
+
   handleSubmit = (e) => {
     e.preventDefault();
     userService.signup(this.state)
       .then(() => {
         this.props.handleSignup();
-        this.props.history.push('/');
+        this.props.handleName();
+        this.props.history.push('/dashboard');
       })
       // invalid user data
       .catch(err => this.updateMessage(err.message));

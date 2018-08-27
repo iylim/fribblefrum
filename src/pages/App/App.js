@@ -2,23 +2,24 @@ import React, { Component } from 'react';
 import {
   BrowserRouter as Router,
   Switch,
-  Route,
-  Redirect
+  Route
 } from 'react-router-dom';
 import './App.css';
 import Splash from '../Splash/Splash';
 import GamePage from '../GamePage/GamePage';
 import DashboardPage from '../DashboardPage/DashboardPage';
+import WaitingPage from '../WaitingPage/WaitingPage';
 import userService from '../../utils/userService';
+import roomsAPI from '../../utils/roomsAPI';
 import LoginForm from '../../components/LoginForm/LoginForm';
 import SignupForm from '../../components/SignupForm/SignupForm';
+import JoinRoom from '../../components/JoinRoom/JoinRoom';
 
 class App extends Component {
   constructor() {
     super();
-    this.state = { user: '', gamesPlayed: 0, wins: 0}
+    this.state = {user: {}, gamesPlayed: 0, wins: 0, rooms:[]}
   }
-
 
   /*---------- Helper Methods ----------*/
 
@@ -38,6 +39,18 @@ class App extends Component {
     this.setState({user: userService.getUser()});
   }
 
+  createRoom = () => {
+    this.setState({rooms: roomsAPI.createRoom()});
+    this.props.history.push('/waiting');
+  }
+    //get back room document (._id, roomId, players: [player name, player name ])
+    //history.push(`/rooms/${room._id`)
+
+    //socket io listening for start game
+    //game id and room can be same id for route
+    
+  
+
   /*---------- Lifecycle Methods ----------*/
 
   componentDidMount() {
@@ -50,10 +63,12 @@ class App extends Component {
       <div className="App">
         <Router>
           <Switch>
-          <Route exact path="/" render={(props) => <Splash  />} />
-          <Route path="/login" render={() => <LoginForm handleLogin={this.handleLogin} />} />
-          <Route path="/signup" render={() => <SignupForm handleSignup={this.handleSignup} />} />
-          <Route path="/dashboard" render={(props) => <DashboardPage /> } />
+          <Route exact path="/" render={(props) => <Splash {...props}/>} />
+          <Route path="/login" render={(props) => <LoginForm {...props} handleLogin={this.handleLogin} />} />
+          <Route path="/signup" render={(props) => <SignupForm name={this.state.name} {...props} handleSignup={this.handleSignup} />} />
+          <Route path="/dashboard" render={(props) => <DashboardPage {...props} user={this.state.user} handleLogout={this.handleLogout} createRoom={this.createRoom}/> } />
+          <Route path="/joinroom" render={(props) => <JoinRoom {...props} /> } />
+          <Route path="/waiting" render={(props) => <WaitingPage {...props} />} />
           <Route path="/game/:id" render={(props) => <GamePage {...props}/> } />
           </Switch>
         </Router>
