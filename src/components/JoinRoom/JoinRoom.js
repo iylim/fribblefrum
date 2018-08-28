@@ -1,14 +1,32 @@
 import React, {Component} from 'react';
 import {Link} from 'react-router-dom';
+import roomsAPI from '../../utils/roomsAPI';
 
 class JoinRoom extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      roomId: '',
-      players: []
+      room: null
     }
-  };
+  }
+
+handleChange = (e) => {
+  var roomId = e.target.value;
+  console.log(e.target.value);
+  
+  this.setState({room:roomId})
+}
+
+handleSubmit = (e) => {
+  e.preventDefault();
+  roomsAPI.getRoom(this.state.room)
+  .then(room => {
+      console.log(room)
+      // this.setState({room});
+  });
+}
+
+
 
 render() {
     return(
@@ -16,7 +34,7 @@ render() {
         <form className="form-horizontal" onSubmit={this.handleSubmit} >
           <div className="form-group">
             <div className="col-sm-12">
-              <input type="roomId" className="form-control" placeholder="Room Id" value={this.state.roomId} onChange={(e) => this.handleChange('roomId', e)} />
+              <input type="roomId" className="form-control" placeholder="Enter Room Id" onChange={(e) => this.handleChange(e)} />
             </div>
           </div>
           <div className="form-group">

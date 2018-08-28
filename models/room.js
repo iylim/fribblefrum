@@ -11,7 +11,6 @@ var roomSchema = new mongoose.Schema({
   roomSchema.set('toJSON', {
     transform: function(doc, ret) {
       return ret;
-          //.populate({path: 'players', select: 'name', _id}) backend
     }
   });
 

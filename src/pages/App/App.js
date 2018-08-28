@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import {
-  BrowserRouter as Router,
   Switch,
   Route
 } from 'react-router-dom';
@@ -40,8 +39,10 @@ class App extends Component {
   }
 
   createRoom = () => {
-    this.setState({rooms: roomsAPI.createRoom()});
-    this.props.history.push('/waiting');
+    roomsAPI.createRoom().then(room => {
+      this.setState({room});
+      this.props.history.push(`/waiting/${room._id}`);
+    })
   }
     //get back room document (._id, roomId, players: [player name, player name ])
     //history.push(`/rooms/${room._id`)
@@ -61,17 +62,15 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        <Router>
-          <Switch>
-          <Route exact path="/" render={(props) => <Splash {...props}/>} />
+        <Switch>
+          <Route exact path="/" render={(props) => (this.state.user ? <DashboardPage {...props} user={this.state.user} handleLogout={this.handleLogout} createRoom={this.createRoom}/> : <Splash {...props} />)} />
           <Route path="/login" render={(props) => <LoginForm {...props} handleLogin={this.handleLogin} />} />
           <Route path="/signup" render={(props) => <SignupForm name={this.state.name} {...props} handleSignup={this.handleSignup} />} />
           <Route path="/dashboard" render={(props) => <DashboardPage {...props} user={this.state.user} handleLogout={this.handleLogout} createRoom={this.createRoom}/> } />
-          <Route path="/joinroom" render={(props) => <JoinRoom {...props} /> } />
-          <Route path="/waiting" render={(props) => <WaitingPage {...props} />} />
+          <Route path="/joinroom" render={(props) => <JoinRoom {...props} user={this.state.user}/> } />
+          <Route path="/waiting/:id" render={(props) => <WaitingPage {...props} />} />
           <Route path="/game/:id" render={(props) => <GamePage {...props}/> } />
-          </Switch>
-        </Router>
+        </Switch>
       </div>
     );
   }

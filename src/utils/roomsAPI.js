@@ -2,25 +2,26 @@ import tokenService from './tokenService';
 const BASE_URL = '/api/rooms/';
 
 function createRoom() {    
-return fetch( BASE_URL + ':id', {
+return fetch( BASE_URL, {
     method: 'POST',
-    headers: new Headers({'Content-Type': 'application/json'}),
+    headers: new Headers({'Content-Type': 'application/json', 
+    'Authorization': 'Bearer ' + tokenService.getToken()}),
     body: JSON.stringify()
   })
   .then(res => {
     if (res.ok) return res.json();
-    throw new Error('Bad credentials');
+    throw new Error('Error creating room');
   })
-  .then(rooms => rooms);
+  .then(room => room);
 }
 
-function getRoomId() {
-  return fetch(BASE_URL, getAuthRequestOptions('GET'))
+function getRoom(id) {
+  return fetch(`${BASE_URL}${id}`, getAuthRequestOptions('GET'))
   .then(res => {
     if (res.ok) return res.json();
-    throw new Error('Bad credentials');
+    throw new Error('Error getting room');
   })
-  .then(rooms => rooms);
+  .then(room => room);
 }
 
 /*----- Helper Functions -----*/
@@ -34,5 +35,5 @@ function getAuthRequestOptions(method) {
 
 export default {
     createRoom,
-    getRoomId
+    getRoom
 };
