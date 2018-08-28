@@ -5,6 +5,8 @@ require('dotenv').config();
 require('./config/database');
 
 var app = express();
+var server = require('http').Server(app);
+require('./io').init(server);
 
 app.use(logger('dev'));
 
@@ -27,6 +29,6 @@ app.get('/*', function(req, res) {
 //use port 3001
 var port = process.env.PORT || 3001;
 
-app.listen(port, function() {
+server.listen(port, function() {
   console.log(`Express app running on port ${port}`)
 });

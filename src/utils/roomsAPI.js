@@ -15,8 +15,8 @@ return fetch( BASE_URL, {
   .then(room => room);
 }
 
-function getRoom(id) {
-  return fetch(`${BASE_URL}${id}`, getAuthRequestOptions('GET'))
+function getRoom() {
+  return fetch(`${BASE_URL}active`, getAuthRequestOptions('GET'))
   .then(res => {
     if (res.ok) return res.json();
     throw new Error('Error getting room');

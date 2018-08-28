@@ -17,10 +17,7 @@ class WaitingPage extends Component {
     }
 
     componentDidMount() {
-        roomsAPI.getRoom(this.props.match.params.id)
-        .then(room => {
-            this.setState({room});
-        });
+        
     }
 
     render() {
@@ -29,7 +26,7 @@ class WaitingPage extends Component {
         <div className="WaitingRoom">
             Room Id: {this.state.room.roomId} <br />
             Waiting for more players...<br />
-            <Link to="/dashboard">Back</Link><br />
+            {/* <Link to="/">Back</Link><br /> */}
             <button onClick={this.startGame} disabled={this.state.room.players.length < 3} >Start Game</button>
         </div>
     )}

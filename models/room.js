@@ -1,9 +1,15 @@
 var mongoose = require('mongoose');
 var shortid = require('shortid');
 
+var playerSchema = new mongoose.Schema({
+  userId: String,
+  name: String
+});
+
 var roomSchema = new mongoose.Schema({
     roomId: {type: String, default: shortid.generate},
-    players: [{type: mongoose.Schema.Types.ObjectId, ref: 'User'}],
+    players: [playerSchema],
+    status: {type: String, enum:['playing', 'waiting', 'done'], default: 'waiting'}
 }, {
     timestamps: true
   });
