@@ -1,6 +1,5 @@
 var Question = require('../models/question');
 
-
 module.exports = {
    index
 };

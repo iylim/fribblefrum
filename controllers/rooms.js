@@ -1,10 +1,11 @@
 var Room = require('../models/room');
-const io = require('../io').get();
+var io = require('../io').getIo();
 
 module.exports = {
     newRoom,
     getRoom,
-    joinRoom
+    joinRoom,
+    startGame
 };
 
   function newRoom(req, res) {
@@ -27,9 +28,9 @@ module.exports = {
     .catch(err => res.status(400).json(err));
   } 
 
-  
   function joinRoom(req, res) {
     Room.findOne({roomId: req.params.id}).then(room => {
+      //if player is not already in the players array
       room.players.push({
         userId: req.user._id,
         name: req.user.name
@@ -41,3 +42,17 @@ module.exports = {
           .catch(err => res.status(400).json(err));
     });
     }
+
+  function startGame(req, res) {
+    Room.findOne({'players.userId': req.user._id, status: 'waiting'}).exec()
+    .then(room => {
+      room.status = 'playing';
+      room.save().then(room => {
+        io.to(room.id).emit('update-room', room);
+        res.status(200).json({});
+      });
+    })
+    .catch(err => res.status(400).json(err));
+  }
+
+

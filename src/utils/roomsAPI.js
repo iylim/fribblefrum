@@ -1,18 +1,21 @@
 import tokenService from './tokenService';
+import socket from './socket';
 const BASE_URL = '/api/rooms/';
 
 function createRoom() {    
-return fetch( BASE_URL, {
-    method: 'POST',
-    headers: new Headers({'Content-Type': 'application/json', 
-    'Authorization': 'Bearer ' + tokenService.getToken()}),
-    body: JSON.stringify()
-  })
-  .then(res => {
-    if (res.ok) return res.json();
-    throw new Error('Error creating room');
-  })
-  .then(room => room);
+  socket.emit('create-room')
+
+// return fetch( BASE_URL, {
+//     method: 'POST',
+//     headers: new Headers({'Content-Type': 'application/json', 
+//     'Authorization': 'Bearer ' + tokenService.getToken()}),
+//     body: JSON.stringify()
+//   })
+//   .then(res => {
+//     if (res.ok) return res.json();
+//     throw new Error('Error creating room');
+//   })
+//   .then(room => room);
 }
 
 function getRoom() {
@@ -24,8 +27,23 @@ function getRoom() {
   .then(room => room);
 }
 
-function joinRoom(id) {
-  return fetch(`${BASE_URL}${id}`, {
+function joinRoom() {
+  socket.emit('join-room')
+//   return fetch(`${BASE_URL}${id}`, {
+//     method: 'POST',
+//     headers: new Headers({'Content-Type': 'application/json', 
+//     'Authorization': 'Bearer ' + tokenService.getToken()}),
+//     body: JSON.stringify()
+//   })
+//   .then(res => {
+//     if (res.ok) return res.json();
+//     throw new Error('Error joining room');
+//   })
+//   .then(room => room);
+}
+
+function startGame() {
+  return fetch(`${BASE_URL}game`, {
     method: 'POST',
     headers: new Headers({'Content-Type': 'application/json', 
     'Authorization': 'Bearer ' + tokenService.getToken()}),
@@ -33,9 +51,8 @@ function joinRoom(id) {
   })
   .then(res => {
     if (res.ok) return res.json();
-    throw new Error('Error joining room');
+    throw new Error('Error starting Game');
   })
-  .then(room => room);
 }
 
 /*----- Helper Functions -----*/
@@ -50,5 +67,6 @@ function getAuthRequestOptions(method) {
 export default {
     createRoom,
     getRoom,
-    joinRoom
+    joinRoom,
+    startGame
 };

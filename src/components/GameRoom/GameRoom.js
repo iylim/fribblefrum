@@ -6,12 +6,13 @@ import QuestionAnswer from '../../components/QuestionAnswer/QuestionAnswer';
 
 class GameRoom extends Component {
 
+
   render() {
     return (
       <div className='GameRoom'>
       <Switch>
-       <QuestionForm />
-       <QuestionAnswer />
+       <QuestionForm room={this.props.room} questions={this.props.questions}/>
+       <QuestionAnswer room={this.props.room} questions={this.props.questions}/>
        </Switch>
       </div>
     );

@@ -3,30 +3,20 @@ import {Link} from 'react-router-dom';
 import roomsAPI from '../../utils/roomsAPI';
 
 class JoinRoom extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      room: null
-    }
-  }
 
 handleChange = (e) => {
   var roomId = e.target.value;
-  console.log(e.target.value);
-  
-  this.setState({room:roomId})
+  this.setState({roomId:roomId})
 }
 
 handleSubmit = (e) => {
   e.preventDefault();
-  roomsAPI.joinRoom(this.state.room)
+  roomsAPI.joinRoom(this.props.room.roomId)
   .then(room => {
       this.setState({room});
-      this.props.history.push(`/waiting/${room._id}`);
+      this.props.history.push('/waiting');
   });
 }
-
-
 
 render() {
     return(

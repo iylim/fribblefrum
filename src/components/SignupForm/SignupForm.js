@@ -32,7 +32,7 @@ class SignupForm extends Component {
       .then(() => {
         this.props.handleSignup();
         this.props.handleName();
-        this.props.history.push('/dashboard');
+        this.props.history.push('/');
       })
       // invalid user data
       .catch(err => this.updateMessage(err.message));

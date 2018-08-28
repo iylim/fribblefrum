@@ -9,7 +9,7 @@ Question.remove({}).then(() => {
       {question: 'The secret to a happy life...'},
       {question: 'Name a candle scent designed specifically for Nicki Minaj'},
       {question: 'You should never give alcohol to BLANK'},
-      {question: ' Everyone knows that monkeys hate BLANK'},
+      {question: 'Everyone knows that monkeys hate BLANK'},
       {question: 'The worst thing about living in Hell'},
       {question: 'The worst thing for an evil witch to turn you into'}
       

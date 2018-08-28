@@ -9,7 +9,8 @@ var playerSchema = new mongoose.Schema({
 var roomSchema = new mongoose.Schema({
     roomId: {type: String, default: shortid.generate},
     players: [playerSchema],
-    status: {type: String, enum:['playing', 'waiting', 'done'], default: 'waiting'}
+    status: {type: String, enum:['playing', 'waiting', 'done'], default: 'waiting'},
+    questions: []
 }, {
     timestamps: true
   });
