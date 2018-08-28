@@ -15,7 +15,7 @@ class WaitingPage extends Component {
     startGame = () => {
         //go to gamepage
     }
-    
+
     componentDidMount() {
         roomsAPI.getRoom(this.props.match.params.id)
         .then(room => {

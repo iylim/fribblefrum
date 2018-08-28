@@ -6,6 +6,7 @@ var roomsCtrl = require('../../controllers/rooms');
 /*---------- Public Routes ----------*/
 router.post('/', roomsCtrl.newRoom);
 router.get('/:id', roomsCtrl.get);
+router.post('/:id', roomsCtrl.joinRoom);
 /*---------- Protected Routes ----------*/
 
 

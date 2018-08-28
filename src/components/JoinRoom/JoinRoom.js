@@ -19,10 +19,10 @@ handleChange = (e) => {
 
 handleSubmit = (e) => {
   e.preventDefault();
-  roomsAPI.getRoom(this.state.room)
+  roomsAPI.joinRoom(this.state.room)
   .then(room => {
-      console.log(room)
-      // this.setState({room});
+      this.setState({room});
+      this.props.history.push(`/waiting/${room._id}`);
   });
 }
 

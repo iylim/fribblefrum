@@ -24,6 +24,20 @@ function getRoom(id) {
   .then(room => room);
 }
 
+function joinRoom(id) {
+  return fetch(`${BASE_URL}${id}`, {
+    method: 'POST',
+    headers: new Headers({'Content-Type': 'application/json', 
+    'Authorization': 'Bearer ' + tokenService.getToken()}),
+    body: JSON.stringify()
+  })
+  .then(res => {
+    if (res.ok) return res.json();
+    throw new Error('Error joining room');
+  })
+  .then(room => room);
+}
+
 /*----- Helper Functions -----*/
 
 function getAuthRequestOptions(method) {
@@ -35,5 +49,6 @@ function getAuthRequestOptions(method) {
 
 export default {
     createRoom,
-    getRoom
+    getRoom,
+    joinRoom
 };

@@ -68,7 +68,7 @@ class App extends Component {
           <Route path="/signup" render={(props) => <SignupForm name={this.state.name} {...props} handleSignup={this.handleSignup} />} />
           <Route path="/dashboard" render={(props) => <DashboardPage {...props} user={this.state.user} handleLogout={this.handleLogout} createRoom={this.createRoom}/> } />
           <Route path="/joinroom" render={(props) => <JoinRoom {...props} user={this.state.user}/> } />
-          <Route path="/waiting/:id" render={(props) => <WaitingPage {...props} />} />
+          <Route path="/waiting/:id" render={(props) => <WaitingPage {...props} user={this.state.user} rooms={this.state.rooms}/>} />
           <Route path="/game/:id" render={(props) => <GamePage {...props}/> } />
         </Switch>
       </div>
