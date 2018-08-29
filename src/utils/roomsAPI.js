@@ -20,7 +20,7 @@ function joinRoom(roomId) {
 }
 
 function startGame() {
-  return fetch(`${BASE_URL}game`, {
+  return fetch(`${BASE_URL}play`, {
     method: 'POST',
     headers: new Headers({'Content-Type': 'application/json', 
     'Authorization': 'Bearer ' + tokenService.getToken()}),

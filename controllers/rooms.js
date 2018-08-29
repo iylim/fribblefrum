@@ -31,7 +31,7 @@ function getRoom(req, res) {
 } 
 
 function joinRoom(req, res) {
-  Room.findOne({roomId: req.params.id}).then(room => {
+  Room.findOne({roomId: req.params._id}).then(room => {
     //add functionality to see if player is already in the players array 
     room.players.push({
       userId: req.user._id,
@@ -51,8 +51,13 @@ function startGame(req, res) {
     room.status = 'playing';
     getQuestions(room.players.length)
     .then(questions => {
-      room.questions = questions;  
-      players.map((p, i) => p.prompt.push({question: room.questions[i]}, {question: room.questions[i+1]}));
+      room.questions = questions;
+      var prompts = generatePrompts(questions);
+      prompts.forEach((prompt, i) => {
+        prompt.forEach(p => {
+          room.players[i].prompts.push({question: p}); 
+        });
+      });
 
 
 
@@ -75,6 +80,15 @@ function startGame(req, res) {
 
 
 /*----- Helper Functions -----*/
+
+function generatePrompts(questions) {
+  // return an array of arrays, where the inner arrays have two prompt objects
+  var lastIdx = questions.length - 1;
+  return questions.map((q, i) => {
+    return [q, i === lastIdx ? questions[0] : questions[i + 1]];
+  });
+}
+
 function getQuestions(numPlayers) {
   return Question.find({})
   .then(questions => { 

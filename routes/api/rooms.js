@@ -2,6 +2,7 @@ var express = require('express');
 var router = express.Router();
 var Room = require('../../models/room');
 var roomsCtrl = require('../../controllers/rooms');
+var socket = require('../../controllers/socket');
 
 /*---------- Public Routes ----------*/
 router.post('/', roomsCtrl.newRoom);

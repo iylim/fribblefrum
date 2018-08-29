@@ -11,7 +11,7 @@ var playerSchema = new mongoose.Schema({
   userId: String,
   name: String,
   done: {type: Boolean, default: false},
-  prompt: [promptSchema]
+  prompts: [promptSchema]
 });
 
 var roomSchema = new mongoose.Schema({
