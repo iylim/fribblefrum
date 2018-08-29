@@ -52,8 +52,8 @@ function startGame(req, res) {
     getQuestions(room.players.length)
     .then(questions => {
       room.questions = questions;  
-      players.map(p => p.prompt.push({question: room.questions[i]}, {question: room.questions[i+1]}));
-      
+      players.map((p, i) => p.prompt.push({question: room.questions[i]}, {question: room.questions[i+1]}));
+
 
 
       room.save().then(room => {
