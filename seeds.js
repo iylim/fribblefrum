@@ -11,7 +11,8 @@ Question.remove({}).then(() => {
       {question: 'You should never give alcohol to BLANK'},
       {question: 'Everyone knows that monkeys hate BLANK'},
       {question: 'The worst thing about living in Hell'},
-      {question: 'The worst thing for an evil witch to turn you into'}
+      {question: 'The worst thing for an evil witch to turn you into'},
+      {question: 'The best pet ever would be...'}
       
     ]).then(() => {
       process.exit();

@@ -3,14 +3,21 @@ var shortid = require('shortid');
 
 var playerSchema = new mongoose.Schema({
   userId: String,
-  name: String
+  name: String,
+  done: {type: Boolean, default: false},
+  prompt: [{
+    question: String,
+    answer: String,
+    votes: 0
+  }]
+
 });
 
 var roomSchema = new mongoose.Schema({
     roomId: {type: String, default: shortid.generate},
     players: [playerSchema],
-    status: {type: String, enum:['playing', 'waiting', 'done'], default: 'waiting'},
-    questions: []
+    status: {type: String, enum:['playing', 'waiting', 'voting', 'results', 'done'], default: 'waiting'},
+    questions: [] 
 }, {
     timestamps: true
   });

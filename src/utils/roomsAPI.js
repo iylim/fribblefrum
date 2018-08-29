@@ -4,18 +4,6 @@ const BASE_URL = '/api/rooms/';
 
 function createRoom() {    
   socket.emit('create-room')
-
-// return fetch( BASE_URL, {
-//     method: 'POST',
-//     headers: new Headers({'Content-Type': 'application/json', 
-//     'Authorization': 'Bearer ' + tokenService.getToken()}),
-//     body: JSON.stringify()
-//   })
-//   .then(res => {
-//     if (res.ok) return res.json();
-//     throw new Error('Error creating room');
-//   })
-//   .then(room => room);
 }
 
 function getRoom() {
@@ -27,23 +15,12 @@ function getRoom() {
   .then(room => room);
 }
 
-function joinRoom() {
-  socket.emit('join-room')
-//   return fetch(`${BASE_URL}${id}`, {
-//     method: 'POST',
-//     headers: new Headers({'Content-Type': 'application/json', 
-//     'Authorization': 'Bearer ' + tokenService.getToken()}),
-//     body: JSON.stringify()
-//   })
-//   .then(res => {
-//     if (res.ok) return res.json();
-//     throw new Error('Error joining room');
-//   })
-//   .then(room => room);
+function joinRoom(roomId) {
+  socket.emit('join-room', roomId)
 }
 
 function startGame() {
-  return fetch(`${BASE_URL}game`, {
+  return fetch(`${BASE_URL}active`, {
     method: 'POST',
     headers: new Headers({'Content-Type': 'application/json', 
     'Authorization': 'Bearer ' + tokenService.getToken()}),
@@ -54,6 +31,16 @@ function startGame() {
     throw new Error('Error starting Game');
   })
 }
+
+function getQuestions() {
+  return fetch(`${BASE_URL}game`, getAuthRequestOptions('GET'))
+  .then(res => {
+    if (res.ok) return res.json();
+    throw new Error('Error getting game');
+  })
+  .then(room => room);
+}
+
 
 /*----- Helper Functions -----*/
 
@@ -68,5 +55,6 @@ export default {
     createRoom,
     getRoom,
     joinRoom,
-    startGame
+    startGame, 
+    getQuestions
 };

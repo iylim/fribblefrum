@@ -6,9 +6,8 @@ var questionsCtrl = require('../../controllers/questions');
 /*---------- Public Routes ----------*/
 
 /*---------- Protected Routes ----------*/
-
+//future admin functionality
 router.get('/', checkAuth, questionsCtrl.index);
-
 
 /*----- Helper Functions -----*/
 

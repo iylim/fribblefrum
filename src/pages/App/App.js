@@ -15,11 +15,11 @@ import SignupForm from '../../components/SignupForm/SignupForm';
 import JoinRoom from '../../components/JoinRoom/JoinRoom';
 import Profile from '../../components/Profile/Profile';
 import socket, { register } from '../../utils/socket';
-
+ 
 class App extends Component {
   constructor(props) {
     super(props);
-    this.state = {user: {}, gamesPlayed: 0, wins: 0, room: null}
+    this.state = {user: null, gamesPlayed: 0, wins: 0, room: null}
     register(this, this.props.history);
   }
 

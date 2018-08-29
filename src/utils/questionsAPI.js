@@ -1,15 +1,15 @@
 import tokenService from './tokenService';
 
-const BASE_URL = '/api/qustions/';
-
-function index() {
-  return fetch(BASE_URL, getAuthRequestOptions('GET'))
-  .then(res => {
-    if (res.ok) return res.json();
-    throw new Error('Bad credentials');
-  })
-  .then(questions => questions);
-}
+const BASE_URL = '/api/questions/';
+//future admin functionality
+// function index() {
+//   return fetch(BASE_URL, getAuthRequestOptions('GET'))
+//   .then(res => {
+//     if (res.ok) return res.json();
+//     throw new Error('Bad credentials');
+//   })
+//   .then(questions => questions);
+// }
 
 /*----- Helper Functions -----*/
 
@@ -21,5 +21,5 @@ function getAuthRequestOptions(method) {
 }
 
 export default {
-  index
+  // index
 };

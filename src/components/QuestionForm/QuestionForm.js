@@ -1,19 +1,20 @@
 import React, {Component} from 'react';
-import questionsAPI from '../../utils/questionsAPI';
+import roomsAPI from '../../utils/roomsAPI';
 import {Link, Switch} from 'react-router-dom';
 
-class GameForm extends Component {
+class QuestionForm extends Component {
 
   render() {
+    console.log(this.props.room.questions)
     return (
       <div className='GameForm'>
       <div className='GameRoomInfo'> 
       Room# {this.props.room.roomId}
       </div>
-        <h1>{this.props.question}</h1>
+      
       </div>
     );
   }
 }
 
-export default GameForm;
+export default QuestionForm;

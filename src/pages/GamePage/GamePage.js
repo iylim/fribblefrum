@@ -1,27 +1,24 @@
 import React, {Component} from 'react';
-import questionsAPI from '../../utils/questionsAPI';
-import {Link} from 'react-router-dom';
-import GameRoom from '../../components/GameRoom/GameRoom';
+import roomsAPI from '../../utils/roomsAPI';
+import {Switch} from 'react-router-dom';
+import QuestionForm from '../../components/QuestionForm/QuestionForm';
+import QuestionAnswer from '../../components/QuestionAnswer/QuestionAnswer';
 
 class GamePage extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      questions: []
-    }
-  }
 
   componentDidMount() {
-    // questionsAPI.index().then(questions =>
-    // 	this.setState({questions})
-    // );
+    this.setState({room: roomsAPI.getQuestions()});
   }
-
+ 
   render() {
     return (
       <div className='GamePage'>
-        <GameRoom questions={this.state.questions} room={this.props.room}/>
-      </div>
+        <div className='Directions'> Its a battle of wits. <br /> Try to best your opponent! <br /> Your fellow players will determine the winner.</div>
+        <Switch>
+        <QuestionForm {...this.props} room={this.props.room} />
+        <QuestionAnswer {...this.props} room={this.props.room} />
+       </Switch>      
+       </div>
     );
   }
 }

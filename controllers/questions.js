@@ -5,5 +5,9 @@ module.exports = {
 };
 
 function index(req, res) {
-    console.log('questions');
-}
+    Question.find({})
+    .then(questions => res.json(questions))
+    .catch(err => res.status(400).json(err));
+} 
+
+

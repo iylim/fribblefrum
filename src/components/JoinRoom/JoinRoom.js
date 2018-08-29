@@ -5,17 +5,12 @@ import roomsAPI from '../../utils/roomsAPI';
 class JoinRoom extends Component {
 
 handleChange = (e) => {
-  var roomId = e.target.value;
-  this.setState({roomId:roomId})
+  this.setState({roomId: e.target.value})
 }
 
 handleSubmit = (e) => {
   e.preventDefault();
-  roomsAPI.joinRoom(this.props.room.roomId)
-  .then(room => {
-      this.setState({room});
-      this.props.history.push('/waiting');
-  });
+  roomsAPI.joinRoom(this.state.roomId);
 }
 
 render() {

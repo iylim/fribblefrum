@@ -15,22 +15,21 @@ function newRoom(user) {
   }); 
 }
 
-function joinRoom(roomI, user) {
+function joinRoom(id, user) {
   return new Promise(function(resolve) {
-  var room = Room.findOne({roomId: roomI}).then(room => {
-    room.players.push({
-      userId: user._id,
-      name: user.name
+    Room.findOne({roomId: id}).then(room => {
+      room.players.push({
+        userId: user._id,
+        name: user.name
+      });
+      room.save()
+        .then(room => {
+          resolve(room);
+        })
+        .catch(err => res.status(400).json(err));
     });
-    room.save()
-      .then(room => {
-        resolve(room);
-      })
-      .catch(err => res.status(400).json(err));
   });
-})
-} 
-
+}
 
 module.exports = {
     newRoom,
