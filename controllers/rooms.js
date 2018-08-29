@@ -7,8 +7,7 @@ module.exports = {
     getRoom,
     joinRoom,
     startGame,
-    getQuestions,
-    updateGame
+    getQuestions
 };
 
 function newRoom(req, res) {
@@ -33,7 +32,7 @@ function getRoom(req, res) {
 
 function joinRoom(req, res) {
   Room.findOne({roomId: req.params.id}).then(room => {
-    //if player is not already in the players array **
+    //add functionality to see if player is already in the players array 
     room.players.push({
       userId: req.user._id,
       name: req.user.name
@@ -50,44 +49,49 @@ function startGame(req, res) {
   Room.findOne({'players.userId': req.user._id, status: 'waiting'}).exec()
   .then(room => {
     room.status = 'playing';
-    room.save().then(room => {
-      io.to(room.id).emit('update-room', room);
-      res.status(200).json({});
+    getQuestions(room.players.length)
+    .then(questions => {
+      room.questions = questions;  
+//map players index with 2 prompts add 2 objects
+ 
+
+
+
+      room.save().then(room => {
+        io.to(room.id).emit('update-room', room);
+        res.status(200).json({});
+      });
     });
   })
   .catch(err => res.status(400).json(err));
 }
 
+
 /*----- Gameplay Functions -----*/
 
-function getQuestions(req, res) {
-  Question.find({})
-  // .then(questions => { 
-  //   getGameQuestions(questions, room.players);
-  // });
-  //   questions.save()
-    .then(questions => room.questions = questions)
-    .then(room => { 
-      res.json(room);
-    })
-    .catch(err => res.status(400).json(err));
-}
+//voting
 
-function updateGame(req, res) {
-  console.log('updating...');
-}
+//getResults
+
 
 
 /*----- Helper Functions -----*/
+function getQuestions(numPlayers) {
+  return Question.find({})
+  .then(questions => { 
+    return getGameQuestions(questions, numPlayers);
+  });
+}
+
 function shuffleArray(array) {
   for (let i = array.length - 1; i > 0; i--) {
-      const j = Math.floor(Math.random() * (i + 1));
-      [array[i], array[j]] = [array[j], array[i]];
+    const j = Math.floor(Math.random() * (i + 1));
+    [array[i], array[j]] = [array[j], array[i]];
   }
 }
 
-function getGameQuestions(questions, players) {
+function getGameQuestions(questions, numPlayers) {
   shuffleArray(questions);
-  return questions.splice(players.length -1);
+  return questions.splice(0, numPlayers).map(q => q.question);
 }
 

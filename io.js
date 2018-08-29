@@ -7,8 +7,9 @@ function init(server) {
 
   io.on('connection', function(socket) {
     
-    socket.on('register', function(user) {
-      socket.user = user;
+    socket.on('register', function(payload) {
+      socket.user = payload.user;
+      if (payload.room) socket.join(payload.room._id);
     });
 
     socket.on('create-room', function() {

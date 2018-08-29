@@ -20,7 +20,7 @@ function joinRoom(roomId) {
 }
 
 function startGame() {
-  return fetch(`${BASE_URL}active`, {
+  return fetch(`${BASE_URL}game`, {
     method: 'POST',
     headers: new Headers({'Content-Type': 'application/json', 
     'Authorization': 'Bearer ' + tokenService.getToken()}),
@@ -32,15 +32,11 @@ function startGame() {
   })
 }
 
-function getQuestions() {
-  return fetch(`${BASE_URL}game`, getAuthRequestOptions('GET'))
-  .then(res => {
-    if (res.ok) return res.json();
-    throw new Error('Error getting game');
-  })
-  .then(room => room);
-}
 
+
+function updateGame() {
+  //update status
+}
 
 /*----- Helper Functions -----*/
 
@@ -55,6 +51,5 @@ export default {
     createRoom,
     getRoom,
     joinRoom,
-    startGame, 
-    getQuestions
+    startGame
 };

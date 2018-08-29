@@ -20,7 +20,7 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {user: null, gamesPlayed: 0, wins: 0, room: null}
-    register(this, this.props.history);
+    register(this);
   }
 
   /*---------- Helper Methods ----------*/
@@ -53,10 +53,10 @@ class App extends Component {
     let user = userService.getUser();
     if (user) {
       this.setState({user}, function() {
-        socket.emit('register', this.state.user)
         roomsAPI.getRoom()
         .then(room => {
-            this.setState({room});
+          socket.emit('register', {user: this.state.user, room});
+          this.setState({room});
         });
       });
     }

@@ -6,9 +6,7 @@ import QuestionAnswer from '../../components/QuestionAnswer/QuestionAnswer';
 
 class GamePage extends Component {
 
-  componentDidMount() {
-    this.setState({room: roomsAPI.getQuestions()});
-  }
+ 
  
   render() {
     return (
