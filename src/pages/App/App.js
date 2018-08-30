@@ -14,6 +14,8 @@ import LoginForm from '../../components/LoginForm/LoginForm';
 import SignupForm from '../../components/SignupForm/SignupForm';
 import JoinRoom from '../../components/JoinRoom/JoinRoom';
 import Profile from '../../components/Profile/Profile';
+import QuestionForm from '../../components/QuestionForm/QuestionForm';
+import QuestionAnswer from '../../components/QuestionAnswer/QuestionAnswer';
 import socket, { register } from '../../utils/socket';
  
 class App extends Component {
@@ -79,6 +81,7 @@ class App extends Component {
             <Route path="/signup" render={(props) => <SignupForm {...props} handleSignup={this.handleSignup} />} />
             <Route path="/joinroom" render={(props) => <JoinRoom {...props} user={this.state.user} room={this.state.room}/> } />
             <Route path="/profile" render={(props) => <Profile {...props} user={this.state.user} gamesPlayed={this.state.gamesPlayed} wins={this.state.wins}/>} />
+            
           </Switch>
         }
       </div>

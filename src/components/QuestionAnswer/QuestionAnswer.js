@@ -10,6 +10,7 @@ class QuestionAnswer extends Component {
       <div className='GameRoomInfo'> 
       Room# {this.props.room.roomId}
       </div>
+  
       </div>
     );
   }
