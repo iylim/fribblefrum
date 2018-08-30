@@ -66,8 +66,8 @@ class App extends Component {
 
   render() {
     var curRoom;
-    curRoom = this.state.room && this.state.room.status === 'playing' && <GamePage user={this.state.user} room={this.state.room}/>;
-    curRoom = curRoom || this.state.room && this.state.room.status === 'waiting' && <WaitingPage user={this.state.user} room={this.state.room}/>;
+    curRoom = this.state.room && this.state.room.status === 'playing' && <GamePage user={this.state.user} room={this.state.room}/>
+    curRoom = curRoom || this.state.room && this.state.room.status === 'waiting' && <WaitingPage user={this.state.user} room={this.state.room}/>
     return (
       <div className="App">
         {curRoom ?
@@ -81,7 +81,6 @@ class App extends Component {
             <Route path="/signup" render={(props) => <SignupForm {...props} handleSignup={this.handleSignup} />} />
             <Route path="/joinroom" render={(props) => <JoinRoom {...props} user={this.state.user} room={this.state.room}/> } />
             <Route path="/profile" render={(props) => <Profile {...props} user={this.state.user} gamesPlayed={this.state.gamesPlayed} wins={this.state.wins}/>} />
-            
           </Switch>
         }
       </div>

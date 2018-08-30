@@ -42,6 +42,7 @@ function startGame(req, res) {
 
 function saveAnswer(req, res) {
   Room.findOne({'players.userId': req.user._id}).then(room => {
+    room.answerNeeded = req.body.answerNeeded -2;  
     var player = room.players.find(p => p.userId === req.user._id);
     player.prompts.forEach((p,i) => 
       p.answer = (i===0) ? req.body.answer1 : req.body.answer2);
@@ -51,6 +52,7 @@ function saveAnswer(req, res) {
     });
   });
 }
+
 //voting
 //fetch to post io.to room to update after each
 //getResults
