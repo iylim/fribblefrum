@@ -32,7 +32,18 @@ function startGame() {
   })
 }
 
-
+function submitAnswer(answers) {
+  return fetch(`${BASE_URL}game`, {
+    method: 'PUT',
+    headers: new Headers({'Content-Type': 'application/json', 
+    'Authorization': 'Bearer ' + tokenService.getToken()}),
+    body: JSON.stringify(answers)
+  })
+  .then(res => {
+    if (res.ok) return res.json();
+    throw new Error('Error starting Game');
+  })
+}
 
 function updateGame() {
   //update status
@@ -51,5 +62,7 @@ export default {
     createRoom,
     getRoom,
     joinRoom,
-    startGame
+    startGame,
+    submitAnswer
+
 };

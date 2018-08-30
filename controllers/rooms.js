@@ -3,25 +3,10 @@ var Question = require('../models/question');
 var io = require('../io').getIo();
 
 module.exports = {
-    newRoom,
     getRoom,
-    joinRoom,
     startGame,
-    getQuestions
+    saveAnswer
 };
-
-function newRoom(req, res) {
-    var room = new Room(req.body);
-    room.players.push({
-      userId: req.user._id,
-      name: req.user.name
-    });
-    room.save()
-      .then(room => {
-        res.json(room);
-      })
-      .catch(err => res.status(400).json(err));
-}
 
 function getRoom(req, res) {
   //query for room 
@@ -29,21 +14,6 @@ function getRoom(req, res) {
   .then(room => res.json(room))
   .catch(err => res.status(400).json(err));
 } 
-
-function joinRoom(req, res) {
-  Room.findOne({roomId: req.params._id}).then(room => {
-    //add functionality to see if player is already in the players array 
-    room.players.push({
-      userId: req.user._id,
-      name: req.user.name
-    });
-      room.save()
-        .then(room => {
-          res.json(room);
-        })
-        .catch(err => res.status(400).json(err));
-  });
-}
 
 function startGame(req, res) {
   Room.findOne({'players.userId': req.user._id, status: 'waiting'}).exec()
@@ -58,9 +28,6 @@ function startGame(req, res) {
           room.players[i].prompts.push({question: p}); 
         });
       });
-
-
-
       room.save().then(room => {
         io.to(room.id).emit('update-room', room);
         res.status(200).json({});
@@ -73,10 +40,25 @@ function startGame(req, res) {
 
 /*----- Gameplay Functions -----*/
 
+function saveAnswer(req, res) {
+  Room.findOne({'players.userId': req.user._id}).then(room => {
+    var player = room.players.find(p => p.userId === req.user._id);
+    player.prompts.forEach((p,i) => 
+      p.answer = (i===0) ? req.body.answer1 : req.body.answer2);
+    room.save().then(room => {
+      io.to(room.id).emit('update-room', room);
+      res.status(200).json({});
+    });
+  });
+}
 //voting
-
+//fetch to post io.to room to update after each
 //getResults
-
+// query room based on prompt id
+// Room.findOne({'players.prompts._id': promptId}).then(room =>
+// var prompt = prompts.id(id...)
+//everylogged in user is answering their own questions
+//find correct prompt to player access user
 
 
 /*----- Helper Functions -----*/

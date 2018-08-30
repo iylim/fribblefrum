@@ -3,28 +3,41 @@ import roomsAPI from '../../utils/roomsAPI';
 import {Link, Switch} from 'react-router-dom';
 
 class QuestionForm extends Component {
-
-  handleChange = (e) => {
-    this.setState({answer: e.target.value})
+  constructor(props) {
+    super(props);
+    this.state = {
+      player: props.player,
+      answer1: '',
+      answer2: ''
+    }
+  }
+  handleChange = (field, e) => {
+    this.setState({
+      [field]: e.target.value
+    })
   }
   
   handleSubmit = (e) => {
     e.preventDefault();
+    roomsAPI.submitAnswer(this.state);
   }
 
   render() {
-    console.log(this.props.room.questions)
     return (
       <div className='GameForm'>
       <div className='GameRoomInfo'> 
         Room# {this.props.room.roomId}
       </div>
-      <form onSubmit={this.handleSubmit}>
-        <label>
-          Enter Response Here...
-          <textarea className="Answer" onChange={this.handleChange} />
-        </label>
-        <input type="submit" value="Submit" />
+      <form className="form-horizontal" onSubmit={this.handleSubmit}>
+        <div className="form-group"> {this.props.player.prompts[0].question}</div>          
+          <div className="form-group">
+          <div className="col-sm-12"><textarea className="Answer" placeholder="Enter Response Here..." onChange={(e) => this.handleChange('answer1', e)} />
+          </div></div><br />
+        <div className="form-group"> {this.props.player.prompts[1].question}</div>          
+          <div className="form-group">
+          <div className="col-sm-12"><textarea className="Answer" placeholder="Enter Response Here..." onChange={(e) => this.handleChange('answer2', e)} />
+          <input type="submit" value="Submit" /></div>
+        </div>
       </form>
       </div>
     );

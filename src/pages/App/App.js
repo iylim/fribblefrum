@@ -56,7 +56,7 @@ class App extends Component {
         roomsAPI.getRoom()
         .then(room => {
           socket.emit('register', {user: this.state.user, room});
-          this.setState({room});
+          this.setState({room: room});
         });
       });
     }
@@ -64,7 +64,7 @@ class App extends Component {
 
   render() {
     var curRoom;
-    curRoom = this.state.room && this.state.room.status === 'playing' && <GamePage room={this.state.room}/>;
+    curRoom = this.state.room && this.state.room.status === 'playing' && <GamePage user={this.state.user} room={this.state.room}/>;
     curRoom = curRoom || this.state.room && this.state.room.status === 'waiting' && <WaitingPage user={this.state.user} room={this.state.room}/>;
     return (
       <div className="App">
