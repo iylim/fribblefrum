@@ -1,16 +1,33 @@
 import React, {Component} from 'react';
 import roomsAPI from '../../utils/roomsAPI';
-import {Link, Switch} from 'react-router-dom';
 
-class QuestionAnswer extends Component {
+class QuestionAnswer extends Component {  
+constructor(props) {
+  super(props);
+  this.state = ({
+    votes: 0
+  })
+}
+  
 
-  render() {
+
+submitVote = () => {
+  
+  //send API put request
+  roomsAPI.getVotes();
+} 
+
+render() { 
+  // if player answered, disable vote buttons 
+  
     return (
       <div className='QuestionAnswer'>
-      <div className='GameRoomInfo'> 
-      Room# {this.props.room.roomId}
-      </div>
-  
+      {this.props.room.questions[0]}<br />
+      <button onClick="submitVote"> {this.props.room.players[0].prompts[0].answer} </button>
+      &nbsp;&nbsp;&nbsp;&nbsp;
+      <button onClick="submitVote"> {this.props.room.players[this.props.room.players.length-1].prompts[1].answer} </button>
+      <br />
+    
       </div>
     );
   }

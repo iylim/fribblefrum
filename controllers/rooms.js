@@ -5,11 +5,12 @@ var io = require('../io').getIo();
 module.exports = {
     getRoom,
     startGame,
-    saveAnswer
+    saveAnswer,
+    getVotes,
+    playAgain
 };
 
 function getRoom(req, res) {
-  //query for room 
   Room.findOne({'players.userId': req.user._id}).where('status').ne('done').exec()
   .then(room => res.json(room))
   .catch(err => res.status(400).json(err));
@@ -37,6 +38,26 @@ function startGame(req, res) {
   .catch(err => res.status(400).json(err));
 }
 
+function playAgain(req, res) {
+  Room.findOne({'players.userId': req.user._id, status: 'playing'}).exec()
+  .then(room => {
+    getQuestions(room.players.length)
+    .then(questions => {
+      room.questions = questions;
+      var prompts = generatePrompts(questions);
+      prompts.forEach((prompt, i) => {
+        prompt.forEach(p => {
+          room.players[i].prompts.push({question: p}); 
+        });
+      });
+      room.save().then(room => {
+        io.to(room.id).emit('update-room', room);
+        res.status(200).json({});
+      });
+    });
+  })
+  .catch(err => res.status(400).json(err));
+}
 
 /*----- Gameplay Functions -----*/
 
@@ -53,6 +74,9 @@ function saveAnswer(req, res) {
   });
 }
 
+function getVotes(req, res) {
+
+}
 //voting
 //fetch to post io.to room to update after each
 //getResults

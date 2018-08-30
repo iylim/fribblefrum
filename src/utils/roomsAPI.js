@@ -45,8 +45,30 @@ function submitAnswer(answers) {
   })
 }
 
-function updateGame() {
-  //update status
+function playAgain() {
+  return fetch(`${BASE_URL}playAgain`, {
+    method: 'POST',
+    headers: new Headers({'Content-Type': 'application/json', 
+    'Authorization': 'Bearer ' + tokenService.getToken()}),
+    body: JSON.stringify()
+  })
+  .then(res => {
+    if (res.ok) return res.json();
+    throw new Error('Error starting Game');
+  })
+}
+
+function getVotes(votes) {
+  return fetch(`${BASE_URL}votes`, {
+    method: 'PUT',
+    headers: new Headers({'Content-Type': 'application/json', 
+    'Authorization': 'Bearer ' + tokenService.getToken()}),
+    body: JSON.stringify(votes)
+  })
+  .then(res => {
+    if (res.ok) return res.json();
+    throw new Error('Error starting Game');
+  })
 }
 
 /*----- Helper Functions -----*/
@@ -63,5 +85,7 @@ export default {
     getRoom,
     joinRoom,
     startGame,
-    submitAnswer
+    submitAnswer,
+    getVotes,
+    playAgain
 };
