@@ -18,8 +18,7 @@ var roomSchema = new mongoose.Schema({
   roomId: {type: String, default: shortid.generate},
   players: [playerSchema],
   status: {type: String, enum:['playing', 'waiting', 'voting', 'results', 'done'], default: 'waiting'},
-  questions: [String],
-  answerNeeded: Number
+  questions: [String]
 }, {
   timestamps: true
 });

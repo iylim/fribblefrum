@@ -8,14 +8,13 @@ import Splash from '../Splash/Splash';
 import GamePage from '../GamePage/GamePage';
 import DashboardPage from '../DashboardPage/DashboardPage';
 import WaitingPage from '../WaitingPage/WaitingPage';
+import VotingPage from '../VotingPage/VotingPage'
 import userService from '../../utils/userService';
 import roomsAPI from '../../utils/roomsAPI';
 import LoginForm from '../../components/LoginForm/LoginForm';
 import SignupForm from '../../components/SignupForm/SignupForm';
 import JoinRoom from '../../components/JoinRoom/JoinRoom';
 import Profile from '../../components/Profile/Profile';
-import QuestionForm from '../../components/QuestionForm/QuestionForm';
-import QuestionAnswer from '../../components/QuestionAnswer/QuestionAnswer';
 import socket, { register } from '../../utils/socket';
  
 class App extends Component {
@@ -66,7 +65,8 @@ class App extends Component {
 
   render() {
     var curRoom;
-    curRoom = this.state.room && this.state.room.status === 'playing' && <GamePage user={this.state.user} room={this.state.room}/>
+    curRoom = this.state.room && this.state.room.status === 'voting' && <VotingPage user={this.state.user} room={this.state.room}/>
+    curRoom = curRoom || this.state.room && this.state.room.status === 'playing' && <GamePage user={this.state.user} room={this.state.room}/>
     curRoom = curRoom || this.state.room && this.state.room.status === 'waiting' && <WaitingPage user={this.state.user} room={this.state.room}/>
     return (
       <div className="App">

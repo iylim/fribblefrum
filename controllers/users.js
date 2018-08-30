@@ -30,6 +30,7 @@ function signup(req, res) {
       }).catch(err => res.status(401).json(err));
   }
 
+//update users stats
 
 /*----- Helper Functions -----*/
 

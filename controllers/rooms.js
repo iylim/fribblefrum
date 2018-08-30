@@ -39,8 +39,9 @@ function startGame(req, res) {
 }
 
 function playAgain(req, res) {
-  Room.findOne({'players.userId': req.user._id, status: 'playing'}).exec()
+  Room.findOne({'players.userId': req.user._id, status: 'done'}).exec()
   .then(room => {
+    room.status = 'playing';
     getQuestions(room.players.length)
     .then(questions => {
       room.questions = questions;
@@ -62,11 +63,12 @@ function playAgain(req, res) {
 /*----- Gameplay Functions -----*/
 
 function saveAnswer(req, res) {
-  Room.findOne({'players.userId': req.user._id}).then(room => {
-    room.answerNeeded = req.body.answerNeeded -2;  
+  Room.findOne({'players.userId': req.user._id, status: 'playing'}).then(room => {
+    // room.answerNeeded = req.body.answerNeeded -2;  
     var player = room.players.find(p => p.userId === req.user._id);
-    player.prompts.forEach((p,i) => 
-      p.answer = (i===0) ? req.body.answer1 : req.body.answer2);
+    player.prompts[0].answer = req.body.answer1;
+    player.prompts[1].answer = req.body.answer2;
+    if (room.players.every(p => p.prompts[0].answer)) room.status = 'voting';
     room.save().then(room => {
       io.to(room.id).emit('update-room', room);
       res.status(200).json({});
@@ -75,16 +77,15 @@ function saveAnswer(req, res) {
 }
 
 function getVotes(req, res) {
-
+  //set status to results
 }
-//voting
-//fetch to post io.to room to update after each
-//getResults
-// query room based on prompt id
 // Room.findOne({'players.prompts._id': promptId}).then(room =>
 // var prompt = prompts.id(id...)
-//everylogged in user is answering their own questions
-//find correct prompt to player access user
+
+//getResults(req, res) {
+//total votes to user?
+//set game status to done
+// }
 
 
 /*----- Helper Functions -----*/
