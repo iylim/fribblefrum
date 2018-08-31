@@ -1,8 +1,7 @@
 import React, {Component} from 'react';
 import roomsAPI from '../../utils/roomsAPI';
-
-
-class Results extends Component {  
+import { Link } from 'react-router-dom';
+class ResultsPage extends Component {  
     
     render() {    
     return (
@@ -16,8 +15,8 @@ class Results extends Component {
           </thead>
           <tbody>
       {this.props.room.players.forEach(p => {
-          var votes = 0;
-        votes = votes + p.prompts[0].votes + p.prompts[1].votes;
+            var votes = 0;
+            votes = votes + p.prompts[0].votes + p.prompts[1].votes;
         return(
             <tr>
                 <td>{p.name}</td>
@@ -25,11 +24,14 @@ class Results extends Component {
             </tr>
         )  
     })}
+
     </tbody>
      </table>
+     <button>Play Again</button>
+     <Link to="/">Home</Link>
       </div>
     );
   }
 }
 
-export default Results;
+export default ResultsPage;

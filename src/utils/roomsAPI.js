@@ -71,8 +71,6 @@ function playAgain() {
   })
 }
 
-
-
 /*----- Helper Functions -----*/
 
 function getAuthRequestOptions(method) {

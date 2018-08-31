@@ -4,7 +4,7 @@ var shortid = require('shortid');
 var promptSchema = new mongoose.Schema({
   question: String,
   answer: {type: String, default: ''},
-  votes: {type: Number, default: 0},
+  votes: [{type: mongoose.Schema.Types.ObjectId}]
 });
 
 var playerSchema = new mongoose.Schema({

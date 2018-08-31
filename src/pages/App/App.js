@@ -49,7 +49,7 @@ class App extends Component {
   }
 
   /*---------- Lifecycle Methods ----------*/
-
+  
   componentDidMount() {
     let user = userService.getUser();
     if (user) {

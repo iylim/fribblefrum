@@ -3,19 +3,18 @@ import {Link} from 'react-router-dom';
 import roomsAPI from '../../utils/roomsAPI';
 
 class JoinRoom extends Component {
+  handleChange = (e) => {
+    this.setState({roomId: e.target.value})
+  }
 
-handleChange = (e) => {
-  this.setState({roomId: e.target.value})
-}
+  handleSubmit = (e) => {
+    e.preventDefault();
+    roomsAPI.joinRoom(this.state.roomId);
+  }
 
-handleSubmit = (e) => {
-  e.preventDefault();
-  roomsAPI.joinRoom(this.state.roomId);
-}
-
-render() {
+  render() {
     return(
-        <div className="CreateRoom">
+      <div className="CreateRoom">
         <form className="form-horizontal" onSubmit={this.handleSubmit} >
           <div className="form-group">
             <div className="col-sm-12">
@@ -25,13 +24,13 @@ render() {
           <div className="form-group">
             <div className="col-sm-12 text-center">
               <button className="btn btn-default">Join Room</button>&nbsp;&nbsp;&nbsp;
-              <Link to='/dashboard'>Back</Link>
+              <Link to='/'>Back</Link>
             </div>
           </div>
         </form>
-        </div>
+      </div>
     )
-}
+  }
 
 }
 

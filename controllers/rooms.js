@@ -3,11 +3,11 @@ var Question = require('../models/question');
 var io = require('../io').getIo();
 
 module.exports = {
-    getRoom,
-    startGame,
-    saveAnswer,
-    getVotes,
-    playAgain
+  getRoom,
+  startGame,
+  saveAnswer,
+  vote,
+  playAgain
 };
 
 function getRoom(req, res) {
@@ -64,7 +64,6 @@ function playAgain(req, res) {
 
 function saveAnswer(req, res) {
   Room.findOne({'players.userId': req.user._id, status: 'playing'}).then(room => {
-    // room.answerNeeded = req.body.answerNeeded -2;  
     var player = room.players.find(p => p.userId === req.user._id);
     player.prompts[0].answer = req.body.answer1;
     player.prompts[1].answer = req.body.answer2;
@@ -76,8 +75,17 @@ function saveAnswer(req, res) {
   });
 }
 
-function getVotes(req, res) {
-  //set status to results
+function vote(req, res) {
+  Room.findOne({'players.userId': req.user._id, status: 'voting'}).then(room => {
+    var prompt = room.prompts.id(req.params.promptId);
+    prompt.votes.push(req.user._id);
+    //if everyone has voted changed status to results
+    //use reduce
+    room.save().then(room => {
+      io.to(room.id).emit('update-room', room);
+      res.status(200).json({});
+    });
+  });
 }
 
 // Room.findOne({'players.prompts._id': promptId}).then(room =>

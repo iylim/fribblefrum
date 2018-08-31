@@ -8,9 +8,10 @@ class Profile extends Component {
         <div className="Profile">
             <div className="Profile-username">{this.props.user.name}</div>
             <div className="user-stats"> 
-            Games Played: {this.props.gamesPlayed}<br />
-            Wins: {this.props.wins}
+            Games Played: {this.props.user.gamesPlayed}<br />
+            Wins: {this.props.user.wins}
             </div>
+            <Link to='/'>Back</Link>
         </div>
     )}
 }

@@ -9,8 +9,7 @@ router.get('/active', roomsCtrl.getRoom);
 router.post('/play', roomsCtrl.startGame);
 router.put('/game', roomsCtrl.saveAnswer)
 // router.put('/result', roomsCtrl.getAnswers)
-//router.post('/playAgain', roomsCtrl.playAgain)
-// router.put('/votes', roomsCtrl.getVotes)
+router.post('/vote/:promptId', roomsCtrl.vote)
 /*---------- Protected Routes ----------*/
 
 
