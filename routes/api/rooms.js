@@ -9,7 +9,7 @@ router.put('/game', roomsCtrl.saveAnswer);
 
 /*---------- Protected Routes ----------*/
 router.get('/active', roomsCtrl.getRoom);
-router.put('/play', roomsCtrl.startGame);
+router.post('/play', roomsCtrl.startGame);
 router.post('/result', roomsCtrl.getResults);
 router.post('/vote/:promptId', roomsCtrl.voting);
 router.put('/playAgain', roomsCtrl.playAgain)
