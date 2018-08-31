@@ -1,6 +1,10 @@
 body {
   height: 92vh;
 }
+div {
+  justify-content: center;
+}
+
 table {
   text-align: center;
   border: 2px solid black;
@@ -9,20 +13,17 @@ table {
   background-color: white;
   padding: 5px;
 }
+
 th {
   padding: 8px 0;
-}
-
-tr.answer-row {
-  height: 8vh;
+  word-wrap: break-word;
 }
 
 td {
+  max-width: 350px;
   border: 1px solid black;
-  max-width: 25vw;
+  white-space: wrap;
+  word-wrap: break-word;
 }
 
-tr.answer-row td {
-  overflow: scroll;
-}
 

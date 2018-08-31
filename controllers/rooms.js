@@ -1,5 +1,6 @@
 var Room = require('../models/room');
 var Question = require('../models/question');
+var User = require('../models/user');
 var io = require('../io').getIo();
 
 module.exports = {
@@ -7,7 +8,6 @@ module.exports = {
   startGame,
   saveAnswer,
   voting,
-  getResults,
   playAgain
 };
 
@@ -72,18 +72,10 @@ function voting(req, res) {
   });
 }
 
-function getResults(req, res) {
-//total votes to user?
-//room.status = 'done';
-//if players leave room remove from room players array
-}
-
 function playAgain(req, res) {
-  Room.findOne({'players.userId': req.user._id, roomId: req.body.roomId}).exec()
+  Room.findOne({'players.userId': req.user._id, status:'results'}).exec()
   .then(room => {
-    room.status = 'waiting';
-    if (2 < room.players.length < 9)
-    startGame();
+    room.status = 'done';
   room.save().then(room => {
       io.to(room.id).emit('update-room', room);
       res.status(200).json({});

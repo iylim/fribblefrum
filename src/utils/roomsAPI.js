@@ -48,24 +48,16 @@ function vote(promptId) {
   })
 }
 
-function getResults() {
-  return fetch(`${BASE_URL}results`, getAuthRequestOptions('POST'))
-  .then(res => {
-    if (res.ok) return res.json();
-    throw new Error('Error Updating');
-  })
-}
-
-function playAgain(roomId) {
+function playAgain() {
   return fetch(`${BASE_URL}playAgain`, {
     method: 'PUT',
     headers: new Headers({'Content-Type': 'application/json', 
     'Authorization': 'Bearer ' + tokenService.getToken()}),
-    body: JSON.stringify(roomId)
+    body: JSON.stringify()
   })
   .then(res => {
     if (res.ok) return res.json();
-    throw new Error('Error Starting Game');
+    throw new Error('Error Starting Again');
   })
 }
 
@@ -85,6 +77,5 @@ export default {
     startGame,
     submitAnswer,
     vote,
-    getResults,
     playAgain
 };
