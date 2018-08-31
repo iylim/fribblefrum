@@ -1,25 +1,10 @@
 import React, { Component } from 'react';
 import roomsAPI from '../../utils/roomsAPI';
-import Voting from '../../components/Voting/Voting';
 
 class VotingPage extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-
-        }
-    }
-
-    // {
-    //     question: props.room.questions[0],
-    //     player: props.room.players.find(p => p.userId === props.user._id),
-    //     prompt1: null,
-    //     prompt2: null
-    // }
-
-    submitVote = (promptId) => {
-        roomsAPI.vote(promptId);
-    };
+  submitVote = (promptId) => {
+    roomsAPI.vote(promptId);
+  };
     
     render() {
         var player = this.props.room.players.find(p => p.userId === this.props.user._id); 
@@ -42,24 +27,23 @@ class VotingPage extends Component {
             return acc;
         }, {});
         var keys = Object.keys(questions);
-        // debugger
         var userId = this.props.user._id;
-        console.log(userId, questions)
         keys.forEach(k => {
             if (questions[k].answers.some(a => a.votes.includes(userId))) delete questions[k];
         });
         keys = Object.keys(questions);
         var question = keys.length ? {
             question: keys[0],
-            answers: questions[Object.keys(questions)[0]].answers
+            answers: questions[Object.keys(questions)[0]].answers    
         } : null;
-        console.log(question)
-         return (
+        return (
             <div className="VotingPage">
                 {question ? 
                     <div>
                         <h3>Vote for your favorite answer</h3>
-
+                        <h2>{keys}</h2>
+                       <button onClick={() => this.submitVote(questions[keys].answers[0].promptId)}>{questions[keys].answers[0].answer}</button>
+                       <button onClick={() => this.submitVote(questions[keys].answers[1].promptId)}>{questions[keys].answers[1].answer}</button>
                     </div>
                 :
                     <h3>Waiting for other players to finish voting!</h3>

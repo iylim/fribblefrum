@@ -20,12 +20,7 @@ function getRoom() {
 }
 
 function startGame() {
-  return fetch(`${BASE_URL}play`, {
-    method: 'POST',
-    headers: new Headers({'Content-Type': 'application/json', 
-    'Authorization': 'Bearer ' + tokenService.getToken()}),
-    body: JSON.stringify()
-  })
+  return fetch(`${BASE_URL}play`, getAuthRequestOptions('POST'))
   .then(res => {
     if (res.ok) return res.json();
     throw new Error('Error Starting Game');
@@ -45,13 +40,16 @@ function submitAnswer(answers) {
   })
 }
 
-function getVotes(votes) {
-  return fetch(`${BASE_URL}votes`, {
-    method: 'PUT',
-    headers: new Headers({'Content-Type': 'application/json', 
-    'Authorization': 'Bearer ' + tokenService.getToken()}),
-    body: JSON.stringify(votes)
+function vote(promptId) {
+  return fetch(`${BASE_URL}vote/${promptId}`, getAuthRequestOptions('POST'))
+  .then(res => {
+    if (res.ok) return res.json();
+    throw new Error('Error Updating');
   })
+}
+
+function getResults() {
+  return fetch(`${BASE_URL}results`, getAuthRequestOptions('POST'))
   .then(res => {
     if (res.ok) return res.json();
     throw new Error('Error Updating');
@@ -59,12 +57,7 @@ function getVotes(votes) {
 }
 
 function playAgain() {
-  return fetch(`${BASE_URL}playAgain`, {
-    method: 'POST',
-    headers: new Headers({'Content-Type': 'application/json', 
-    'Authorization': 'Bearer ' + tokenService.getToken()}),
-    body: JSON.stringify()
-  })
+  return fetch(`${BASE_URL}playAgain`, getAuthRequestOptions('POST'))
   .then(res => {
     if (res.ok) return res.json();
     throw new Error('Error Starting Game');
@@ -86,6 +79,7 @@ export default {
     getRoom,
     startGame,
     submitAnswer,
-    getVotes,
+    vote,
+    getResults,
     playAgain
 };

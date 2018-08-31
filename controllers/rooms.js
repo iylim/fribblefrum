@@ -6,7 +6,8 @@ module.exports = {
   getRoom,
   startGame,
   saveAnswer,
-  vote,
+  voting,
+  getResults,
   playAgain
 };
 
@@ -18,28 +19,6 @@ function getRoom(req, res) {
 
 function startGame(req, res) {
   Room.findOne({'players.userId': req.user._id, status: 'waiting'}).exec()
-  .then(room => {
-    room.status = 'playing';
-    getQuestions(room.players.length)
-    .then(questions => {
-      room.questions = questions;
-      var prompts = generatePrompts(questions);
-      prompts.forEach((prompt, i) => {
-        prompt.forEach(p => {
-          room.players[i].prompts.push({question: p}); 
-        });
-      });
-      room.save().then(room => {
-        io.to(room.id).emit('update-room', room);
-        res.status(200).json({});
-      });
-    });
-  })
-  .catch(err => res.status(400).json(err));
-}
-
-function playAgain(req, res) {
-  Room.findOne({'players.userId': req.user._id, status: 'done'}).exec()
   .then(room => {
     room.status = 'playing';
     getQuestions(room.players.length)
@@ -75,12 +54,17 @@ function saveAnswer(req, res) {
   });
 }
 
-function vote(req, res) {
+function voting(req, res) {
   Room.findOne({'players.userId': req.user._id, status: 'voting'}).then(room => {
-    var prompt = room.prompts.id(req.params.promptId);
+    var player = room.players.find(p => p.prompts.id(req.params.promptId));
+    var prompt = player.prompts.id(req.params.promptId);
     prompt.votes.push(req.user._id);
-    //if everyone has voted changed status to results
-    //use reduce
+    var totalVotes = 0;
+    room.players.forEach(p => {
+      totalVotes += p.prompts[0].votes.length;
+      totalVotes += p.prompts[1].votes.length;
+    });
+    if (totalVotes === (room.players.length - 2) * room.players.length) room.status = 'results';
     room.save().then(room => {
       io.to(room.id).emit('update-room', room);
       res.status(200).json({});
@@ -88,14 +72,32 @@ function vote(req, res) {
   });
 }
 
-// Room.findOne({'players.prompts._id': promptId}).then(room =>
-// var prompt = prompts.id(id...)
-
-//getResults(req, res) {
+function getResults(req, res) {
 //total votes to user?
-//set game status to done
-// }
+//room.status = 'done';
+}
 
+function playAgain(req, res) {
+  Room.findOne({'players.userId': req.user._id, status: 'done'}).exec()
+  .then(room => {
+    room.status = 'playing';
+    getQuestions(room.players.length)
+    .then(questions => {
+      room.questions = questions;
+      var prompts = generatePrompts(questions);
+      prompts.forEach((prompt, i) => {
+        prompt.forEach(p => {
+          room.players[i].prompts.push({question: p}); 
+        });
+      });
+      room.save().then(room => {
+        io.to(room.id).emit('update-room', room);
+        res.status(200).json({});
+      });
+    });
+  })
+  .catch(err => res.status(400).json(err));
+}
 
 /*----- Helper Functions -----*/
 

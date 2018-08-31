@@ -2,7 +2,6 @@
   height: 100%;
   text-align: center;
   font-family: 'slackey', cursive;
-  
 }
 
 .App h1 {
@@ -12,4 +11,16 @@
 
 .login {
   margin-bottom: 20px;
+}
+
+button {
+  border: none;
+  font-family: 'slackey', cursive;
+  background: none;
+  outline: none;
+  font-size: 14px;
+}
+
+button:hover {
+  font-size: 20px;
 }
