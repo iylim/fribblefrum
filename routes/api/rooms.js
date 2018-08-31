@@ -7,12 +7,11 @@ var socket = require('../../controllers/socket');
 /*---------- Public Routes ----------*/
 router.put('/game', roomsCtrl.saveAnswer);
 
-
 /*---------- Protected Routes ----------*/
 router.get('/active', roomsCtrl.getRoom);
-router.post('/play', roomsCtrl.startGame);
+router.put('/play', roomsCtrl.startGame);
 router.post('/result', roomsCtrl.getResults);
 router.post('/vote/:promptId', roomsCtrl.voting);
-
+router.put('/playAgain', roomsCtrl.playAgain)
 
 module.exports = router;

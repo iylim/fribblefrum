@@ -56,8 +56,13 @@ function getResults() {
   })
 }
 
-function playAgain() {
-  return fetch(`${BASE_URL}playAgain`, getAuthRequestOptions('POST'))
+function playAgain(roomId) {
+  return fetch(`${BASE_URL}playAgain`, {
+    method: 'PUT',
+    headers: new Headers({'Content-Type': 'application/json', 
+    'Authorization': 'Bearer ' + tokenService.getToken()}),
+    body: JSON.stringify(roomId)
+  })
   .then(res => {
     if (res.ok) return res.json();
     throw new Error('Error Starting Game');

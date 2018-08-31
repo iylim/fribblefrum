@@ -75,29 +75,21 @@ function voting(req, res) {
 function getResults(req, res) {
 //total votes to user?
 //room.status = 'done';
+//if players leave room remove from room players array
 }
 
 function playAgain(req, res) {
-  Room.findOne({'players.userId': req.user._id, status: 'done'}).exec()
+  Room.findOne({'players.userId': req.user._id, roomId: req.body.roomId}).exec()
   .then(room => {
-    room.status = 'playing';
-    getQuestions(room.players.length)
-    .then(questions => {
-      room.questions = questions;
-      var prompts = generatePrompts(questions);
-      prompts.forEach((prompt, i) => {
-        prompt.forEach(p => {
-          room.players[i].prompts.push({question: p}); 
-        });
-      });
-      room.save().then(room => {
-        io.to(room.id).emit('update-room', room);
-        res.status(200).json({});
-      });
+    room.status = 'waiting';
+    if (2 < room.players.length < 9)
+    startGame();
+  room.save().then(room => {
+      io.to(room.id).emit('update-room', room);
+      res.status(200).json({});
     });
-  })
-  .catch(err => res.status(400).json(err));
-}
+  });
+} 
 
 /*----- Helper Functions -----*/
 

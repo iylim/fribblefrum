@@ -3,7 +3,10 @@ import roomsAPI from '../../utils/roomsAPI';
 import { Link } from 'react-router-dom';
 import './ResultsPage.css';
 
-class ResultsPage extends Component {  
+class ResultsPage extends Component {      
+  playAgain = (roomId) => { 
+    roomsAPI.playAgain(roomId);
+  }
 
   render() {   
     var allPrompts = this.props.room.players.map(p => p.prompts); 
@@ -37,25 +40,21 @@ console.log(question)
         <div className="resultAnswers">
         <table>
             <th colspan="3">{question.question}</th>
-            <tr>
+            <tr className="answer-row">
               <td>{question.answers[0].answer}</td> 
               <td>{question.answers[1].answer}</td>
             </tr>
             <tr>
-              <td>Player 1</td> 
-              <td>Player 2</td>
-            </tr>
-            <tr>
-              <td>Votes: {question.answers[0].votes.length}</td> 
-              <td>Votes: {question.answers[1].votes.length}</td>
+              <td>Player Name <br /> Votes: {question.answers[0].votes.length} </td> 
+              <td>Player 2 <br /> Votes: {question.answers[1].votes.length}</td>
             </tr>
         </table>
         {/* <button onClick={}>Next</button> */}
+        <button onClick={() => this.playAgain(this.props.room.roomId)}>Play Again</button>
         </div>                
         :
         <div className="end">    
             <h3>Winner: {this.props.user.name}</h3>
-            <button>Play Again</button>
             <Link to="/">Home</Link>
         </div>
         }    

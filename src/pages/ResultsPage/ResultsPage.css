@@ -10,9 +10,19 @@ table {
   padding: 5px;
 }
 th {
-  padding: 5px;
+  padding: 8px 0;
 }
+
+tr.answer-row {
+  height: 8vh;
+}
+
 td {
   border: 1px solid black;
-  width: 33%; 
+  max-width: 25vw;
 }
+
+tr.answer-row td {
+  overflow: scroll;
+}
+

@@ -18,10 +18,10 @@ function newRoom(user) {
 function joinRoom(id, user) {
   return new Promise(function(resolve) {
     Room.findOne({roomId: id}).then(room => {
-      room.players.push({
-        userId: user._id,
-        name: user.name
-      });
+        room.players.push({
+          userId: user._id,
+          name: user.name
+        });
       room.save()
         .then(room => {
           resolve(room);
