@@ -6,17 +6,17 @@ function createRoom() {
   socket.emit('create-room')
 }
 
+function joinRoom(roomId) {
+  socket.emit('join-room', roomId)
+}
+
 function getRoom() {
   return fetch(`${BASE_URL}active`, getAuthRequestOptions('GET'))
   .then(res => {
     if (res.ok) return res.json();
-    throw new Error('Error getting room');
+    throw new Error('Error Getting Room');
   })
   .then(room => room);
-}
-
-function joinRoom(roomId) {
-  socket.emit('join-room', roomId)
 }
 
 function startGame() {
@@ -28,7 +28,7 @@ function startGame() {
   })
   .then(res => {
     if (res.ok) return res.json();
-    throw new Error('Error starting Game');
+    throw new Error('Error Starting Game');
   })
 }
 
@@ -41,20 +41,7 @@ function submitAnswer(answers) {
   })
   .then(res => {
     if (res.ok) return res.json();
-    throw new Error('Error starting Game');
-  })
-}
-
-function playAgain() {
-  return fetch(`${BASE_URL}playAgain`, {
-    method: 'POST',
-    headers: new Headers({'Content-Type': 'application/json', 
-    'Authorization': 'Bearer ' + tokenService.getToken()}),
-    body: JSON.stringify()
-  })
-  .then(res => {
-    if (res.ok) return res.json();
-    throw new Error('Error starting Game');
+    throw new Error('Error Submitting Answers');
   })
 }
 
@@ -67,9 +54,24 @@ function getVotes(votes) {
   })
   .then(res => {
     if (res.ok) return res.json();
-    throw new Error('Error starting Game');
+    throw new Error('Error Updating');
   })
 }
+
+function playAgain() {
+  return fetch(`${BASE_URL}playAgain`, {
+    method: 'POST',
+    headers: new Headers({'Content-Type': 'application/json', 
+    'Authorization': 'Bearer ' + tokenService.getToken()}),
+    body: JSON.stringify()
+  })
+  .then(res => {
+    if (res.ok) return res.json();
+    throw new Error('Error Starting Game');
+  })
+}
+
+
 
 /*----- Helper Functions -----*/
 
@@ -82,8 +84,8 @@ function getAuthRequestOptions(method) {
 
 export default {
     createRoom,
-    getRoom,
     joinRoom,
+    getRoom,
     startGame,
     submitAnswer,
     getVotes,

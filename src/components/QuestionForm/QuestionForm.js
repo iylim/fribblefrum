@@ -1,8 +1,5 @@
 import React, {Component} from 'react';
 import roomsAPI from '../../utils/roomsAPI';
-import {Link, Switch} from 'react-router-dom';
-import QuestionAnswer from '../../components/QuestionAnswer/QuestionAnswer';
-
 
 class QuestionForm extends Component {
   constructor(props) {

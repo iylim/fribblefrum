@@ -1,9 +1,6 @@
 import React, {Component} from 'react';
 import roomsAPI from '../../utils/roomsAPI';
-import {Route, Switch} from 'react-router-dom';
 import QuestionForm from '../../components/QuestionForm/QuestionForm';
-import QuestionAnswer from '../../components/QuestionAnswer/QuestionAnswer';
-import Results from '../../components/Results/Results';
 
 class GamePage extends Component {
   constructor(props) {

@@ -8,7 +8,7 @@ import Splash from '../Splash/Splash';
 import GamePage from '../GamePage/GamePage';
 import DashboardPage from '../DashboardPage/DashboardPage';
 import WaitingPage from '../WaitingPage/WaitingPage';
-import VotingPage from '../VotingPage/VotingPage'
+import VotingPage from '../VotingPage/VotingPage';
 import userService from '../../utils/userService';
 import roomsAPI from '../../utils/roomsAPI';
 import LoginForm from '../../components/LoginForm/LoginForm';

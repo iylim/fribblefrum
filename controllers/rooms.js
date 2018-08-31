@@ -79,6 +79,7 @@ function saveAnswer(req, res) {
 function getVotes(req, res) {
   //set status to results
 }
+
 // Room.findOne({'players.prompts._id': promptId}).then(room =>
 // var prompt = prompts.id(id...)
 
