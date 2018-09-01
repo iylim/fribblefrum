@@ -77,7 +77,7 @@ function done(req, res) {
   .then(room => {
     room.status = 'done';
   room.save().then(room => {
-      res.status(200).json({});
+      res.json(room);
     });
   });
 } 

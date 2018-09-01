@@ -75,7 +75,7 @@ class ResultsPage extends Component {
                 )
             })}
         </table>              
-            <Link to="/" onClick={()=>this.done()}>Home</Link>
+            <button onClick={()=>this.playAgain()}>Home</button>
             </div>
     );
   }
