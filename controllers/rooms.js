@@ -8,7 +8,7 @@ module.exports = {
   startGame,
   saveAnswer,
   voting,
-  playAgain
+  done
 };
 
 function getRoom(req, res) {
@@ -72,12 +72,11 @@ function voting(req, res) {
   });
 }
 
-function playAgain(req, res) {
-  Room.findOne({'players.userId': req.user._id, status:'results'}).exec()
+function done(req, res) {
+  Room.findOne({'players.userId': req.user._id, status: 'results'}).exec()
   .then(room => {
     room.status = 'done';
   room.save().then(room => {
-      io.to(room.id).emit('update-room', room);
       res.status(200).json({});
     });
   });

@@ -6,7 +6,8 @@ class Profile extends Component {
     render() {
       return (
         <div className="Profile">
-            <div className="Profile-username">{this.props.user.name}</div>
+            <div className="Profile-username">{this.props.user.name}<br />
+            {this.props.user.email}</div>
             <div className="user-stats"> 
             Games Played: {this.props.user.gamesPlayed}<br />
             Wins: {this.props.user.wins}

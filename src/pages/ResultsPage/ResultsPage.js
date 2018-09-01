@@ -1,12 +1,13 @@
 import React, {Component} from 'react';
 import roomsAPI from '../../utils/roomsAPI';
 import { Link } from 'react-router-dom';
-import Results from '../../components/Results/Results';
+import Result from '../../components/Result/Result';
+import TopScore from '../../components/TopScore/TopScore';
 import './ResultsPage.css';
 
 class ResultsPage extends Component {      
   playAgain = () => { 
-    roomsAPI.playAgain();
+    roomsAPI.done();
   }
 
   render() {   
@@ -42,21 +43,40 @@ class ResultsPage extends Component {
         }
     });
 
+    var totalVotes = [];
+    playerQuestions.forEach(p => {
+    var player = totalVotes.find(pl => p.playerName === pl.player);
+        if (player) {
+            player.player = player.player;
+            player.votes = player.votes + p.votes;
+        } else {
+            totalVotes.push({
+                player: p.playerName,
+                votes: p.votes
+            })
+        }   
+    });
+
+    totalVotes.sort((a, b) => a.votes < b.votes);
+    
     return (
-        <div className="Results">
-        <h3>Results</h3>
+        <div className="Results">   
+            <h3>Results</h3>
+        {totalVotes.map(obj => {
+            return(
+            <TopScore key={obj.player} obj={obj}/>
+        )
+    })}
+
         <table className="table">
             {questions.map(q => {
                 return(
-                    <Results key={q.playerName} q={q} />
+                    <Result key={q.playerName} q={q} />
                 )
             })}
         </table>              
-        <div className="end">    
-            <h3>Winner: {this.props.user.name}</h3>
-            <Link to="/" onClick={()=>this.playAgain()}>Home</Link>
-        </div>
-      </div>
+            <Link to="/" onClick={()=>this.done()}>Home</Link>
+            </div>
     );
   }
 }

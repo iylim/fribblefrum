@@ -27,7 +27,6 @@ class SignupForm extends Component {
 
 
   handleSubmit = (e) => {
-    e.preventDefault();
     userService.signup(this.state)
       .then(() => {
         this.props.handleSignup();

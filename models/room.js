@@ -10,7 +10,6 @@ var promptSchema = new mongoose.Schema({
 var playerSchema = new mongoose.Schema({
   userId: String,
   name: String,
-  done: {type: Boolean, default: false},
   prompts: [promptSchema]
 });
 

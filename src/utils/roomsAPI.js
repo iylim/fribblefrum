@@ -48,8 +48,8 @@ function vote(promptId) {
   })
 }
 
-function playAgain() {
-  return fetch(`${BASE_URL}playAgain`, {
+function done() {
+  return fetch(`${BASE_URL}done`, {
     method: 'PUT',
     headers: new Headers({'Content-Type': 'application/json', 
     'Authorization': 'Bearer ' + tokenService.getToken()}),
@@ -77,5 +77,5 @@ export default {
     startGame,
     submitAnswer,
     vote,
-    playAgain
+    done
 };

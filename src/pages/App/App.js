@@ -66,7 +66,8 @@ class App extends Component {
 
   render() {
     var curRoom;
-    curRoom = this.state.room && this.state.room.status === 'results' && <ResultsPage user={this.state.user} room={this.state.room}/>
+    curRoom = this.state.room && this.state.room.status === 'done' && <DashboardPage user={this.state.user} room={this.state.room}/>
+    curRoom = curRoom || this.state.room && this.state.room.status === 'results' && <ResultsPage user={this.state.user} room={this.state.room}/>
     curRoom = curRoom || this.state.room && this.state.room.status === 'voting' && <VotingPage user={this.state.user} room={this.state.room}/>
     curRoom = curRoom || this.state.room && this.state.room.status === 'playing' && <GamePage user={this.state.user} room={this.state.room}/>
     curRoom = curRoom || this.state.room && this.state.room.status === 'waiting' && <WaitingPage user={this.state.user} room={this.state.room}/>

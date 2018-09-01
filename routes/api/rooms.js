@@ -11,6 +11,6 @@ router.put('/game', roomsCtrl.saveAnswer);
 router.get('/active', roomsCtrl.getRoom);
 router.post('/play', roomsCtrl.startGame);
 router.post('/vote/:promptId', roomsCtrl.voting);
-router.put('/playAgain', roomsCtrl.playAgain)
+router.put('/done', roomsCtrl.done);
 
 module.exports = router;
