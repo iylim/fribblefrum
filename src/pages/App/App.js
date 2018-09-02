@@ -43,7 +43,6 @@ class App extends Component {
     this.setState({user: userService.getUser()}, function() {
       roomsAPI.getRoom()
       .then(room => {
-        console.log(room)
           this.setState({room});
       });
     });

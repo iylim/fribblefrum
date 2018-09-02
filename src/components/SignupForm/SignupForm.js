@@ -27,10 +27,10 @@ class SignupForm extends Component {
 
 
   handleSubmit = (e) => {
+    e.preventDefault();
     userService.signup(this.state)
       .then(() => {
         this.props.handleSignup();
-        this.props.handleName();
         this.props.history.push('/');
       })
       // invalid user data

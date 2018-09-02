@@ -2,6 +2,7 @@
   height: 100%;
   text-align: center;
   font-family: 'slackey', cursive;
+  font-size:18px;
 }
 
 .App h1 {
@@ -18,9 +19,12 @@ button {
   font-family: 'slackey', cursive;
   background: none;
   outline: none;
-  font-size: 14px;
+  font-size: 18px;
 }
 
 button:hover {
-  font-size: 20px;
+  font-size: 22px;
 }
+
+
+  

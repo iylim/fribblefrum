@@ -1,14 +1,26 @@
 import React, {Component} from 'react';
 import {Link} from 'react-router-dom';
 import userService from '../../utils/userService';
+import InvalidCred from '../../components/InvalidCred/InvalidCred'
 
 class LoginForm extends Component {
   constructor(props) {
     super(props);
     this.state = {
       email: '',
-      pw: ''
-    }
+      pw: '',
+      message: '',
+      isHidden: true,
+    };
+  }
+
+  updateMessage = (msg) => {
+    this.toggleHidden();
+    this.setState({message: msg});
+  }
+
+  toggleHidden = () => {
+      this.setState({isHidden: !this.state.isHidden});
   }
 
   handleChange = (field, e) => {
@@ -25,13 +37,12 @@ class LoginForm extends Component {
         this.props.handleLogin();
         this.props.history.push('/');
       })
-      // invalid credentials - don't alert in YOUR app :)
-      .catch(err => alert('Invalid Credentials!'));
+      .catch(err => this.updateMessage(err.message));
   }
 
   render() {
     return (
-      <div>
+      <div className="login">
         <header className="header-footer">Log In</header>
         <form className="form-horizontal" onSubmit={this.handleSubmit} >
           <div className="form-group">
@@ -51,7 +62,10 @@ class LoginForm extends Component {
             </div>
           </div>
         </form>
-      </div>
+        {!this.state.isHidden && <InvalidCred isHidden={this.state.isHidden} toggleHidden={this.toggleHidden}/>}
+        </div>
+        
+        
     );
   }
 };

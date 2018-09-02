@@ -7,11 +7,20 @@ body {
   margin: 0;
   padding: 0;
   font-family: sans-serif;
-  background-image: url("https://i.imgur.com/OiHrDus.jpg");
+  background-image:radial-gradient(#8fcbf5,#73c2fb, #6ab8fc,#2390fcf5); 
+  /* background-image: url("https://i.imgur.com/OiHrDus.jpg"); */
   background-repeat: no-repeat;
   background-size: contain;
   background-position: center;
   align-items: center;
   justify-content: center;
   display: flex;
+  overflow: scroll;
+  word-wrap: break-word;
 }
+
+@media only screen and (min-width : 321px) {
+  /* Styles */
+  }
+
+ 

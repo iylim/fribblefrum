@@ -22,7 +22,7 @@ class GamePage extends Component {
     return (
       <div className="GamePage">
         <div className='GameRoomInfo'> Room# <br />{this.props.room.roomId}</div>
-        <div className="Instructions">
+        <div >
           {!this.state.isHidden && <GameInstruction toggleHidden={this.toggleHidden} isHidden={this.state.isHidden}/>}
         </div>
         {this.state.isHidden && 

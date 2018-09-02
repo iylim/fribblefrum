@@ -10,7 +10,6 @@ function signup(user) {
     if (res.ok) return res.json();
     throw new Error('Email already taken!');
   })
-  // Parameter destructuring!
   .then(({token}) => token);
 }
 
