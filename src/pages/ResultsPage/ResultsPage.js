@@ -18,10 +18,6 @@ class ResultsPage extends Component {
     })
   }
 
-  playAgain = () => { 
-    roomsAPI.done();
-  }
-
   render() {   
     var playerQuestions = [];
     this.props.room.players.forEach(player => {
@@ -97,7 +93,7 @@ class ResultsPage extends Component {
           <button onClick={this.toggleHidden}>Hide Result Details</button>      
         </div> 
       }      
-        <button onClick={()=>this.playAgain()}>Home</button>
+        <button onClick={()=>this.props.handleHome()}>Home</button>
       </div>
     );
   }
