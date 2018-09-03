@@ -17,7 +17,8 @@ import SignupForm from '../../components/SignupForm/SignupForm';
 import JoinRoom from '../../components/JoinRoom/JoinRoom';
 import Profile from '../../components/Profile/Profile';
 import socket, { register } from '../../utils/socket';
- 
+
+
 class App extends Component {
   constructor(props) {
     super(props);

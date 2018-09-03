@@ -13,6 +13,9 @@ class Splash extends Component {
         <div className="orientation">
           <img src="https://i.imgur.com/UXvEqSo.png" />
         </div>
+        <audio autoPlay loop>
+          <source src="http://freesound.org/data/previews/369/369920_2402876-lq.mp3" />
+        </audio>
       </div>
   )}
 }

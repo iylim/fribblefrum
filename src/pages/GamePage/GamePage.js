@@ -32,6 +32,9 @@ class GamePage extends Component {
         <div>{this.props.room && this.props.room.players.reduce((count, p) => p.prompts[0].answer ? count + 1: count, 0)} of {this.props.room.players.length} players have answered</div>
         </div>
         }
+        <audio autoPlay loop>
+          <source src="http://freesound.org/data/previews/369/369920_2402876-lq.mp3" />
+        </audio>
     </div>
     )
   }
