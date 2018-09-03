@@ -7,7 +7,7 @@ class Splash extends Component {
   render() {
     return (
       <div className="App">
-        <header><h1>Fribble Frum</h1></header>
+        <header className="jackInTheBox"><h1>Fribble Frum</h1></header>
         <Link to='/login'> Login </Link> &nbsp; | &nbsp;
         <Link to='/signup'> Signup </Link><br /><br />
         <div className="orientation">

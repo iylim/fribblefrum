@@ -51,7 +51,7 @@ class App extends Component {
   handleHome = () => {
       roomsAPI.done()
       .then(room => {
-        this.setState({room})
+        this.setState({room: null})
       });
   }
   /*---------- Lifecycle Methods ----------*/
@@ -71,8 +71,7 @@ class App extends Component {
 
   render() {
     var curRoom;
-    curRoom = this.state.room && this.state.room.status === 'done' && <DashboardPage user={this.state.user} room={this.state.room}/>
-    curRoom = curRoom || this.state.room && this.state.room.status === 'results' && <ResultsPage user={this.state.user} room={this.state.room} handleHome={this.handleHome}/>
+    curRoom = this.state.room && this.state.room.status === 'results' && <ResultsPage user={this.state.user} room={this.state.room} handleHome={this.handleHome}/>
     curRoom = curRoom || this.state.room && this.state.room.status === 'voting' && <VotingPage user={this.state.user} room={this.state.room}/>
     curRoom = curRoom || this.state.room && this.state.room.status === 'playing' && <GamePage user={this.state.user} room={this.state.room}/>
     curRoom = curRoom || this.state.room && this.state.room.status === 'waiting' && <WaitingPage user={this.state.user} room={this.state.room}/>
@@ -82,7 +81,7 @@ class App extends Component {
           curRoom
         :
           <Switch>
-            <Route path="/" render={(props) => (this.state.user ? 
+            <Route exact path="/" render={(props) => (this.state.user ? 
             <DashboardPage {...props} user={this.state.user} handleLogout={this.handleLogout} room={this.state.room}/> : 
             <Splash {...props} /> )} />
             <Route path="/login" render={(props) => <LoginForm {...props} handleLogin={this.handleLogin} />} />
