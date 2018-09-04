@@ -4,7 +4,7 @@
 
 ![splash](https://i.imgur.com/ClUDsZ7.png)
 ![game](https://i.imgur.com/VDUyVSw.png)
-![voting] (https://i.imgur.com/DoyBXeN.png)
+![voting](https://i.imgur.com/DoyBXeN.png)
 
 ### Get Started
 [Fribble Frum](https://fribble-frum.herokuapp.com/)
