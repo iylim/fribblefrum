@@ -33,7 +33,7 @@ class GamePage extends Component {
         </div>
         }
         <audio autoPlay loop>
-          <source src="http://freesound.org/data/previews/369/369920_2402876-lq.mp3" />
+          <source src="https://freesound.org/data/previews/369/369920_2402876-lq.mp3" />
         </audio>
     </div>
     )

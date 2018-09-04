@@ -16,7 +16,7 @@ class WaitingPage extends Component {
             <p className="pulse">Waiting for more players...</p>
             <button onClick={this.startGame} disabled={this.props.room.players.length < 3} >Start Game</button>
             <audio autoPlay loop>
-              <source src="http://freesound.org/data/previews/369/369920_2402876-lq.mp3" />
+              <source src="https://freesound.org/data/previews/369/369920_2402876-lq.mp3" />
             </audio>
         </div>
 
