@@ -54,7 +54,9 @@ class App extends Component {
       .then(room => {
         this.setState({room: null})
       });
+      this.history.push('/');
   }
+  
   /*---------- Lifecycle Methods ----------*/
   
   componentDidMount() {
