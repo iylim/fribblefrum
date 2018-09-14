@@ -25,5 +25,6 @@
 
 ### Unsolved Problems/ Future Enhancements
 * Back button from waiting page
+* Prevent other players from joining a room once game starts
 * Additional rounds per game
 * Saving stats
