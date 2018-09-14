@@ -67,7 +67,7 @@ class ResultsPage extends Component {
     
     return (
       <div className="Results">
-      <div className='GameRoomInfo'> Room# <br />{this.props.room.roomId}</div>
+      <div className="GameRoomInfo"> Room# <br />{this.props.room.roomId}</div>
       <div className="tada"><h3>Results</h3></div> 
       <ol>
         {totalVotes.map(obj => {
