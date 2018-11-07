@@ -5,6 +5,7 @@
 ![splash](https://i.imgur.com/ClUDsZ7.png)
 ![game](https://i.imgur.com/VDUyVSw.png)
 ![voting](https://i.imgur.com/DoyBXeN.png)
+[![gameplay demo](http://img.youtube.com/vi/Amq6s7lXDVM/0.jpg)](https://youtu.be/Amq6s7lXDVM)
 
 ### Get Started
 [Fribble Frum](https://fribble-frum.herokuapp.com/)
